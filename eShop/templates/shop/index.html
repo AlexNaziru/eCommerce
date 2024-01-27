@@ -1,0 +1,74 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+    <title>eShop</title>
+</head>
+<body>
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {# Search bar #}
+                    <form class="card card-sm">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col">
+                                <input type="search" name="item_name" placeholder="Cauta produse" class="form-control form-control-borderless"/>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-success" type="submit">Cauta</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            {# Content #}
+            <div class="row">
+                {% for product in product_objects %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="{{ product.image }}" alt="" class="card-img-top" />
+                        <div class="card-body">
+                            <div class="card-title">
+                                 {{ product.title }}
+                            </div>
+                            <div class="card-text">
+                                 {{ product.price }} lei
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-md-3 offset-md-4">
+                    <ul class="pagination">
+                        {% if product_objects.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ product_objects.previous_page_number }}">Anterior</a>
+                            </li>
+                        {% endif %}
+                             <li class="page-item active">
+                                <a class="page-link" href="?page={{ product_objects.number }}">Pagina curenta</a>
+                            </li>
+                        {% if product_objects.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ product_objects.next_page_number }}">Urmatoarea</a>
+                            </li>
+                        {% endif %} 
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
