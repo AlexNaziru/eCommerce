@@ -19,7 +19,7 @@
             <div class="col-md-12">
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                  <a class="navbar-brand" href="#">Navbar</a>
+                  <a class="navbar-brand" href="#">eShop</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
@@ -60,7 +60,7 @@
                         <div class="card-body">
                             {# We used name so the product id on the button won't mix with the title #}
                             <div id="name{{ product.id }}" class="card-title">{{ product.title }}</div>
-                            <div class="card-text">
+                            <div id="price{{ product.id }}" class="card-text">
                                  {{ product.price }} lei
                             </div>
                             <a href="/{{ product.id }}" class="btn btn-warning">Vizualizeaza</a>
@@ -109,11 +109,13 @@
         if (cart[item_id] !== undefined) {
             quantity = cart[item_id][0] + 1
             cart[item_id][0] = quantity
+            cart[item_id][2] = cart[item_id][2] + parseFloat(document.getElementById("price" + item_id).innerHTML)
         } else {
             {# this adds more products to the cart by 1 when clicked again #}
             quantity = 1
+            price = parseFloat(document.getElementById("price" + item_id).innerHTML)
             name = document.getElementById("name" + item_id).innerHTML
-            cart[item_id] = [quantity, name]
+            cart[item_id] = [quantity, name, price]
         }
         console.log(cart)
     {#  Saving our cart content into the localStorage so it won't go away when we refresh the page  #}

@@ -70,15 +70,22 @@ if (localStorage.getItem("cart") === null) {
 } else {
     cart = JSON.parse(localStorage.getItem("cart"))
 }
+
 {# Looping threw all the items in the cart #}
+let total = 0
 for (item in cart) {
     let name = cart[item][1]
     let quantity = cart[item][0]
+    let price = cart[item][2]
+    total = total + cart[item][2]
 
-    itemString = `<li class = "list-group-item">${name}-${quantity}</li>`
+    itemString = `<li class = "list-group-item">${name} x ${quantity} = ${price} </li>`
     $("#item_list").append(itemString)
 }
+totalPrice = `<li class="list-group-item d-flex justify-content-between align-items-center"><b>Total:</b>${total}lei</li>`
+
 {# This will take the values in the cart and will convert the JSON object into a string and assign it's value to items  #}
+$("#item_list").append(totalPrice)
 $("#items").val(JSON.stringify(cart))
 </script>
 </html>
