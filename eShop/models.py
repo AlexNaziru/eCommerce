@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Product(models.Model):
+    def __str__(self):  # Dynamic title in the admin page
+        return self.title
     title = models.CharField(max_length=255)
     price = models.FloatField()
     discount = models.FloatField()
